@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TrackPack</title>
+
+
+
+</head>
+
+<body>
+
+{{^user}}
+
+{{#invalidUser}}
+    <H1>Error: Invalid login</H1>
+{{/invalidUser}}
+
+
+
+<!--<form action="/login" method="post">-->
+    <!--<input type="text" placeholder="Username" name="userName" required/>-->
+    <!--<input type="password" placeholder="Password" name="password" required/>-->
+    <!--<button type="submit">Login</button>-->
+<!--</form>-->
+{{/user}}
+
+{{#user}}
+Welcome, {{name}}!
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+
+
+<div id="top">
+    <H1>TrackPack</H1>
+</div>
+
+    <form action="/track-number" method="post">
+        <input type="text" placeholder="Enter your tracking number" name="tracking" />
+        <input type="text" placeholder="Enter the shipping company" name="slug" />
+        <button type="submit">Track Pack</button>
+    </form>
+
+
+
+
+<div id="status info">
+    <table border="0">
+        <tr><th>TRACKING NUMBER</th>
+            <th>SHIPPING COMPANY</th>
+            <th>SHIPPED BY</th>
+            <th>SIGNED BY</th>
+            <th>INSURED</th>
+            <th>SHIPPED DATE</th>
+            <th>DELIVERY DATE</th>
+        </tr>
+        {{#trackedData}}
+        <tr>
+            <td>{{tracking}}</td>
+            <td>{{slug}}</td>
+            <td>{{tag}}</td>
+            <td>{{signedBy}}</td>
+            <td>{{active}}</td>
+            <td>{{expectedDelivery}}</td>
+            <td>{{shipmentPackageCount}}</td>
+        </tr>
+        {{/trackedData}}
+    </table>
+</div>
+
+
+
+<br>
+<br>
+<form action="/get-rates" method="post">
+
+<fieldset>
+    <Legend>Ship From Address</Legend>
+    <input type="text" placeholder="Enter your Address" name="fromStreet"/>
+    <span>City</span>
+    <input type="text" placeholder="Enter your City" name="fromCity" />
+    <span>State</span>
+    <input type="text" placeholder="Enter your State" name="fromState" />
+    <span>Zip Code</span>
+    <input type="text" placeholder="Enter your Zip" name="fromZip"/>
+</fieldset>
+<br>
+<fieldset>
+    <legend>Ship To Address</legend>
+    <input type="text"  placeholder="Enter your Address" name="toStreet"/>
+    <span>City</span>
+    <input type="text"  placeholder="Enter your City" name="toCity"/>
+    <span>State</span>
+    <input type="text"   placeholder="Enter your State" name="toState"/>
+    <span>Zip Code</span>
+    <input type="text"  placeholder="Enter your Zip" name="toZip"/>
+    <button type="submit">Get Rates</button>
+</fieldset>
+
+</form>
+
+<div id="rates info">
+    <table border="0">
+        <tr><th>SHIPPING COMPANY</th>
+            <th>COST</th>
+            <th>DELIVERY DATE</th>
+
+        </tr>
+        {{#rateList}}
+        <tr>
+            <td>{{slug}}</td>
+            <td>{{shippingCost}}</td>
+            <td>{{arrivalDate}}</td>
+        </tr>
+        {{/rateList}}
+    </table>
+</div>
+{{/user}}
+</body>
+
+</html>
